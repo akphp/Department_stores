@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login' , 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
 
@@ -39,15 +39,15 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             // return $this->apiResponse(null, $validator->errors()->toJson(), 400);
-            return response()->json( $validator->errors()->toJson()  , 400);
+            return response()->json($validator->errors()->toJson(), 400);
         }
 
         $user = User::create([
             'username' =>  $request->username,
-           'name' =>  $request->name,
+            'name' =>  $request->name,
             'email' =>  $request->email,
             'phone' => $request->phone,
-            'is_active' =>  0 ,
+            'is_active' =>  0,
             'mobile' => $request->address,
             'password' => bcrypt($request->password),
         ]);
@@ -55,11 +55,10 @@ class AuthController extends Controller
 
         if (!$token = $this->guard()->login($user)) {
             return $this->apiResponse(null, null, 401);
-            return response()->json(['message' => 'error '] , 401);
+            return response()->json(['message' => 'error '], 401);
             // return abort(401);
         }
         return $this->respondWithToken($token);
-
     }
 
     /**
@@ -71,9 +70,9 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password' , 'is_active');
+        $credentials = $request->only('username', 'password', 'is_active');
         $credentials['is_active'] = 1;
-        if ($token = $this->guard()->attempt($credentials  )) {
+        if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
 
@@ -133,6 +132,5 @@ class AuthController extends Controller
     public function guard()
     {
         return auth::guard('user-api');
-
     }
 }

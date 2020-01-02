@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 
@@ -156,7 +157,4 @@ class PlanRepository implements PlanInterface
         $plan->update();
         return $plan;
     }
-
-
 }
-

@@ -18,12 +18,13 @@ class Admin  extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-       'username', 'name', 'email', 'password', 'phone' , 'mobile' , 'is_active' , 'verified',
-       'verification_token',
+        'username', 'name', 'email', 'password', 'phone', 'mobile', 'is_active', 'verified',
+        'verification_token',
     ];
-    public function getRouteKeyName() {
+    public function getRouteKeyName()
+    {
         return 'username';
-        }
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -43,7 +44,7 @@ class Admin  extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-     public function image()
+    public function image()
     {
         return $this->morphOne('App\Image', 'imageable');
     }

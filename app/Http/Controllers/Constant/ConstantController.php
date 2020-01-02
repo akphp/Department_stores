@@ -38,8 +38,8 @@ class ConstantController extends Controller
      */
     function index()
     {
-          $constants =  $this->constantRepository->all();
-          return $this->showAll($constants);
+        $constants =  $this->constantRepository->all();
+        return $this->showAll($constants);
         // return response(['data' => $plans] , SUCCESS_RESPONSE);
 
     }
@@ -51,10 +51,10 @@ class ConstantController extends Controller
      */
     public function show($id)
     {
-        $constant= $this->constantRepository->find($id);
+        $constant = $this->constantRepository->find($id);
         // dd($this->showOne($plan));
         // $this->showOne($plan);
-        return response(['data' => $constant , 'code' => SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
     /**
@@ -66,14 +66,12 @@ class ConstantController extends Controller
     function store(ConstantRequest $request)
     {
         $constant = $this->constantRepository->store($request);
-        return response(['data' => $constant , 'code' => SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
-
+        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
-    function update($id , ConstantRequest $request)
+    function update($id, ConstantRequest $request)
     {
-        $constant = $this->constantRepository->update($id ,$request);
-        return response(['data' => $constant , 'code' => SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
-
+        $constant = $this->constantRepository->update($id, $request);
+        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
     /**
@@ -88,7 +86,7 @@ class ConstantController extends Controller
     function changeStatus(Request $request, Constant $constant, $active)
     {
         $constant = $this->constantRepository->changeStatus($request, $constant, $active);
-        return response(['data' => $constant , 'code' =>SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
 
         // return response()->api(SUCCESS_RESPONSE, trans('lang.status_updated_successfully', ['attribute' => trans('lang.plan')]), $plan);
     }
@@ -96,7 +94,7 @@ class ConstantController extends Controller
     public function destroy(Constant $constant)
     {
         $constant = $this->constantRepository->delete($constant);
-        return response(['data' => $constant , 'code' =>SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
         // return response()->api(SUCCESS_RESPONSE, trans('lang.deleted_successfully', ['attribute' => trans('lang.plan')]), $plan);
     }
 }

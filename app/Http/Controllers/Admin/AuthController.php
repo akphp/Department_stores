@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     public function __construct(AdminInterface $adminRepository)
     {
-        $this->middleware('auth:api', ['except' => ['login' , 'register' , 'verify' , 'resend']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'resend']]);
         $this->adminRepository = $adminRepository;
     }
 
@@ -36,8 +36,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-       return  $this->adminRepository->register($request);
-
+        return  $this->adminRepository->register($request);
     }
 
     /**
@@ -49,7 +48,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-      return $this->adminRepository->login($request);
+        return $this->adminRepository->login($request);
     }
 
     /**
@@ -59,7 +58,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-       return $this->adminRepository->profile();
+        return $this->adminRepository->profile();
     }
 
     /**
@@ -75,7 +74,7 @@ class AuthController extends Controller
 
     public function verify($token)
     {
-       return $this->adminRepository->verify($token);
+        return $this->adminRepository->verify($token);
     }
 
 
@@ -83,5 +82,4 @@ class AuthController extends Controller
     {
         return $this->adminRepository->resend($admin);
     }
-
 }

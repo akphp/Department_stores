@@ -39,8 +39,8 @@ class PlanController extends Controller
      */
     function index()
     {
-          $plans =  $this->planeRepository->all();
-          return $this->showAll($plans);
+        $plans =  $this->planeRepository->all();
+        return $this->showAll($plans);
         // return response(['data' => $plans] , SUCCESS_RESPONSE);
 
     }
@@ -55,7 +55,7 @@ class PlanController extends Controller
         $plan = $this->planeRepository->find($id);
         // dd($this->showOne($plan));
         // $this->showOne($plan);
-        return response(['data' => $plan , 'code' => SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+        return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
     /**
@@ -67,8 +67,7 @@ class PlanController extends Controller
     function store(PlanRequest $request)
     {
         $plan = $this->planeRepository->store($request);
-        return response(['data' => $plan , 'code' => SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
-
+        return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
 
@@ -84,7 +83,7 @@ class PlanController extends Controller
     function changeStatus(Request $request, Plan $plan, $active)
     {
         $plan = $this->planeRepository->changeStatus($request, $plan, $active);
-        return response(['data' => $plan , 'code' =>SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+        return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
 
         // return response()->api(SUCCESS_RESPONSE, trans('lang.status_updated_successfully', ['attribute' => trans('lang.plan')]), $plan);
     }
@@ -92,7 +91,7 @@ class PlanController extends Controller
     public function destroy(Plan $plan)
     {
         $plan = $this->planeRepository->delete($plan);
-        return response(['data' => $plan , 'code' =>SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+        return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
         // return response()->api(SUCCESS_RESPONSE, trans('lang.deleted_successfully', ['attribute' => trans('lang.plan')]), $plan);
     }
 }

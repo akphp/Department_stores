@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Interfaces\ConstantInterface;
@@ -82,7 +83,7 @@ class ConstantRepository implements ConstantInterface
         // unset($constant['modules']);
         $constant['name'] = json_encode($constant['name']);
         $constant['user_id'] = $userId;
-        $constant['is_active'] = INACTIVE ;
+        $constant['is_active'] = INACTIVE;
 
         $constant = constant::create($constant);
 
@@ -97,7 +98,7 @@ class ConstantRepository implements ConstantInterface
      * @return mixed
      * @author Amr
      */
-    function update($id , Request $request)
+    function update($id, Request $request)
     {
         $constant = Constant::findOrFail($id);
         $userId = Auth::guard('admin-api')->user()->id;
@@ -105,7 +106,7 @@ class ConstantRepository implements ConstantInterface
         // unset($constant['modules']);
         $data['name'] = json_encode($data['name']);
         $data['user_id'] = $userId;
-        $data['is_active'] = INACTIVE ;
+        $data['is_active'] = INACTIVE;
 
         $constant->update($data);
 
@@ -140,7 +141,4 @@ class ConstantRepository implements ConstantInterface
         $constant->update();
         return $constant;
     }
-
-
 }
-

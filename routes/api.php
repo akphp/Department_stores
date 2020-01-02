@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 
-Route::group(['middleware' => 'api','prefix' => 'admin'], function ($router) {
+Route::group(['middleware' => 'api', 'prefix' => 'admin'], function ($router) {
     Route::post('login', 'Admin\AuthController@login');
     Route::post('register', 'Admin\AuthController@register');
 
@@ -30,8 +30,8 @@ Route::group(['middleware' => 'api','prefix' => 'admin'], function ($router) {
     Route::post('profile', 'Admin\AuthController@me');
 });
 
-Route::name('verify')->get('admin/verify/{token}' , 'Admin\AuthController@verify');
-Route::name('resend')->get('admin/{user}/resend' , 'Admin\AuthController@resend');
+Route::name('verify')->get('admin/verify/{token}', 'Admin\AuthController@verify');
+Route::name('resend')->get('admin/{user}/resend', 'Admin\AuthController@resend');
 
 
 
@@ -39,7 +39,7 @@ Route::name('resend')->get('admin/{user}/resend' , 'Admin\AuthController@resend'
  * User
  */
 
-Route::group(['middleware' => 'api','prefix' => 'user'], function ($router) {
+Route::group(['middleware' => 'api', 'prefix' => 'user'], function ($router) {
     Route::post('login', 'User\AuthController@login');
     Route::post('register', 'User\AuthController@register');
 
@@ -51,9 +51,9 @@ Route::group(['middleware' => 'api','prefix' => 'user'], function ($router) {
 
 
 Route::group(['middleware' => 'auth:' . ADMIN_GUARD], function () {
-/**
- * Plans
- */
+    /**
+     * Plans
+     */
     Route::group(['prefix' => 'plans'], function () {
         Route::post('/', ['as' => 'plan.store', 'uses' => 'Plan\PlanController@store']);
         Route::match(["POST", "PUT"], '/{plan}', ['as' => 'plan.update', 'uses' => 'Plan\PlanController@update']);
@@ -65,14 +65,14 @@ Route::group(['middleware' => 'auth:' . ADMIN_GUARD], function () {
 
 
     /**
- * Constant
- */
-Route::group(['prefix' => 'constants'], function () {
-    Route::post('/', ['as' => 'constant.store', 'uses' => 'Constant\ConstantController@store']);
-    Route::match(["POST", "PUT"], '/{constant}', ['as' => 'constant.update', 'uses' => 'Constant\ConstantController@update']);
-    Route::get('/', ['as' => 'constant.index', 'uses' => 'Constant\ConstantController@index']);
-    Route::get('/{id}', ['as' => 'constant.show', 'uses' => 'Constant\ConstantController@show'])->where('id', '[0-9]+');;
-    Route::delete('/{constant}', ['as' => 'constant.delete', 'uses' => 'Constant\ConstantController@destroy']);
-    Route::post('/{constant}/{active}', ['as' => 'constant.change.active', 'uses' => 'Constant\ConstantController@changeStatus']);
-});
+     * Constant
+     */
+    Route::group(['prefix' => 'constants'], function () {
+        Route::post('/', ['as' => 'constant.store', 'uses' => 'Constant\ConstantController@store']);
+        Route::match(["POST", "PUT"], '/{constant}', ['as' => 'constant.update', 'uses' => 'Constant\ConstantController@update']);
+        Route::get('/', ['as' => 'constant.index', 'uses' => 'Constant\ConstantController@index']);
+        Route::get('/{id}', ['as' => 'constant.show', 'uses' => 'Constant\ConstantController@show'])->where('id', '[0-9]+');;
+        Route::delete('/{constant}', ['as' => 'constant.delete', 'uses' => 'Constant\ConstantController@destroy']);
+        Route::post('/{constant}/{active}', ['as' => 'constant.change.active', 'uses' => 'Constant\ConstantController@changeStatus']);
+    });
 });
