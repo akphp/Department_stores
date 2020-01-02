@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\AdminInterface;
 use App\Interfaces\ConstantInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -10,6 +11,7 @@ use App\Mail\AdminCreated;
 use App\Mail\UserCreated;
 use App\Mail\UserMailChaanged;
 use App\Models\Admin;
+use App\Repositories\AdminRepository;
 use App\Repositories\ConstantRepository;
 use App\Repositories\PlanRepository;
 use Illuminate\Support\Facades\Mail;
@@ -52,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
          $this->app->bind(PlanInterface::class, PlanRepository::class);
 
          $this->app->bind(ConstantInterface::class, ConstantRepository::class);
+         $this->app->bind(AdminInterface::class, AdminRepository::class);
+
 
         /*
          * bind Offer interface with Offer repository

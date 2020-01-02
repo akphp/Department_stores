@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
+use App\Interfaces\AdminInterface;
 use App\Mail\AdminCreated;
 use App\Mail\UserCreated;
 use App\Models\Admin;
@@ -17,55 +18,25 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     use ApiResponser;
+
+    private $adminRepository;
+
     /**
-     * Create a new AuthController instance.
-     *
-     * @return void
+     * PlanController constructor.
+     * @param PlanInterface $planeRepository
      */
-    public function __construct()
+
+    public function __construct(AdminInterface $adminRepository)
     {
         $this->middleware('auth:api', ['except' => ['login' , 'register' , 'verify' , 'resend']]);
+        $this->adminRepository = $adminRepository;
     }
 
 
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255|unique:users',
-            'name' => 'required|string|max:255',
-            'phone' => 'required|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'mobile' => 'required',
-            // 'habbits' => 'required',
-            // 'favorite_events' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            // return $this->apiResponse(null, $validator->errors()->toJson(), 400);
-            return response()->json( $validator->errors()->toJson()  , 400);
-        }
-
-        $user = Admin::create([
-            'username' =>  $request->username,
-           'name' =>  $request->name,
-            'email' =>  $request->email,
-            'phone' => $request->phone,
-            'is_active' =>  INACTIVE,
-            'verified' => INACTIVE ,
-            'mobile' => $request->address,
-            'verification_token' =>  Admin::generateVerificationCode(),
-            'password' => bcrypt($request->password),
-        ]);
-
-
-        if (!$token = $this->guard()->login($user)) {
-            return $this->apiResponse(null, null, 401);
-            return response()->json(['message' => 'error '] , 401);
-            // return abort(401);
-        }
-        return $this->respondWithToken($token);
+       return  $this->adminRepository->register($request);
 
     }
 
@@ -78,13 +49,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password' , 'is_active');
-        $credentials['is_active'] = 1;
-        if ($token = $this->guard()->attempt($credentials  )) {
-            return $this->respondWithToken($token);
-        }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
+      return $this->adminRepository->login($request);
     }
 
     /**
@@ -94,8 +59,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        $user = new UserCollection($this->guard()->user());
-        return response()->json($user);
+       return $this->adminRepository->profile();
     }
 
     /**
@@ -105,69 +69,19 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth('admin-api')::logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->adminRepository->logout();
     }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-
-
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
-        ]);
-    }
-
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    public function guard()
-    {
-        return auth::guard('admin-api');
-
-    }
-
 
 
     public function verify($token)
     {
-        $admin = Admin::where('verification_token' , $token)->firstOrFail();
-        $admin->is_active = ACTIVE ;
-        $admin->verified = ACTIVE ;
-        $admin->verification_token = null;
-        $admin->save();
-        return $this->showMessage("The account has been verified succesfully ");
+       return $this->adminRepository->verify($token);
     }
 
 
     public function resend(Admin $admin)
     {
-        if ($admin->isVerified()) {
-            return $this->errorResponse('This user is already verified', 409);
-        }
-
-        retry(5, function() use ($admin) {
-                Mail::to($admin)->send(new AdminCreated($admin));
-            }, 100);
-
-        return $this->showMessage('The verification email has been resend');
+        return $this->adminRepository->resend($admin);
     }
 
 }
