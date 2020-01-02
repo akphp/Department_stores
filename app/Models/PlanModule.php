@@ -21,7 +21,7 @@ class PlanModule extends Model
      * @author Amr
      * @var string
      */
-    protected $table = 'currencies';
+    protected $table = 'plan_modules';
     /**
      * model's attributes
      * @var array

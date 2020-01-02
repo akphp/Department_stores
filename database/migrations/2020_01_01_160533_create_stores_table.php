@@ -42,6 +42,8 @@ class CreateStoresTable extends Migration
             $table->rememberToken();
             $table->string('date_format');
             $table->string('country_service');
+            $table->unsignedBigInteger('plan_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

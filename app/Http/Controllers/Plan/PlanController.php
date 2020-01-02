@@ -67,7 +67,8 @@ class PlanController extends Controller
     function store(PlanRequest $request)
     {
         $plan = $this->planeRepository->store($request);
-        return response()->api(SUCCESS_RESPONSE, trans('lang.created_successfully', ['attribute' => trans('lang.plan')]), $plan);
+        return response(['data' => $plan , 'code' => SUCCESS_RESPONSE] , SUCCESS_RESPONSE);
+
     }
 
 
