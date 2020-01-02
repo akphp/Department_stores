@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 
-Auth::routes();
+Auth::routes(['register' => false , 'password.*' => false]);
 
+// Route::get('login' , 'Auth\LoginController@showLoginForm');
 // Route::get('/home', 'HomeController@index')->name('home');

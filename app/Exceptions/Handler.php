@@ -72,13 +72,13 @@ class Handler extends ExceptionHandler
             return $this->errorResponse("Does not exists any {$modelName} with the specified identificator", 404);
         }
 
-        // if($exception instanceof AuthenticationException ){
-        //     return $this->unauthenticated($request ,$exception);
-        // }
+        if($exception instanceof AuthenticationException ){
+            return $this->unauthenticated($request ,$exception);
+        }
 
-        // if($exception instanceof AuthorizationException ){
-        //     return $this->errorResponse( $exception->getMessage() , 403);
-        // }
+        if($exception instanceof AuthorizationException ){
+            return $this->errorResponse( $exception->getMessage() , 403);
+        }
 
         if($exception instanceof MethodNotAllowedHttpException ){
             return $this->errorResponse( "'The specified method for the requrest in invalid" , 404);
@@ -115,7 +115,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated( $request ,AuthenticationException $e)
     {
         if ($this->isFrontend($request)) {
-            return redirect()->guest('login');
+            return redirect()->guest('/');
         }
         // $errors = $e->validator->errors()->getMessages();
         return $this->errorResponse("unauthenticated" , 244);
