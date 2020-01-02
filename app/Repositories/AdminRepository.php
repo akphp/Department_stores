@@ -125,7 +125,7 @@ class AdminRepository implements AdminInterface
         return $this->showMessage("The account has been verified succesfully ");
      }
 
-     funcction resend(Admin $admin){
+     function resend(Admin $admin){
         if ($admin->isVerified()) {
             return $this->errorResponse('This user is already verified', 409);
         }

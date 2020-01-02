@@ -21,6 +21,9 @@ class Admin  extends Authenticatable implements JWTSubject
        'username', 'name', 'email', 'password', 'phone' , 'mobile' , 'is_active' , 'verified',
        'verification_token',
     ];
+    public function getRouteKeyName() {
+        return 'username';
+        }
 
     /**
      * The attributes that should be hidden for arrays.
