@@ -26,8 +26,6 @@ class ConstantRequest extends FormRequest
         return [
             'name' => 'required',
             'parent_id' => 'required|numeric',
-            // 'user_id' => 'required|numeric',
-            // 'is_active' => 'required|numeric|in:1,2',
         ];
     }
 }

@@ -41,19 +41,12 @@ class PlanController extends Controller
     {
         $plans =  $this->planeRepository->all();
         return $this->showAll($plans);
-        // return response(['data' => $plans] , SUCCESS_RESPONSE);
 
     }
 
-    /**
-     * show resource by id
-     * @param $id
-     * @author Amr
-     */
     public function show($id)
     {
         $plan = $this->planeRepository->find($id);
-        // dd($this->showOne($plan));
         // $this->showOne($plan);
         return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
@@ -71,27 +64,16 @@ class PlanController extends Controller
     }
 
 
-    /**
-     * update the status of plan
-     *
-     * @param Request $request
-     * @param Plan $plan
-     * @param $active
-     * @return mixed
-     * @author Amr
-     */
     function changeStatus(Request $request, Plan $plan, $active)
     {
         $plan = $this->planeRepository->changeStatus($request, $plan, $active);
         return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
 
-        // return response()->api(SUCCESS_RESPONSE, trans('lang.status_updated_successfully', ['attribute' => trans('lang.plan')]), $plan);
     }
 
     public function destroy(Plan $plan)
     {
         $plan = $this->planeRepository->delete($plan);
         return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
-        // return response()->api(SUCCESS_RESPONSE, trans('lang.deleted_successfully', ['attribute' => trans('lang.plan')]), $plan);
     }
 }

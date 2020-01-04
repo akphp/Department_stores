@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\AdminRequest;
 use App\Http\Resources\UserCollection;
 use App\Interfaces\AdminInterface;
 use App\Interfaces\PlanInterface;
@@ -16,19 +17,8 @@ use Illuminate\Support\Facades\Validator;
 class AdminRepository implements AdminInterface
 {
     use ApiResponser;
-    /**
-     * repo. model
-     *
-     * @author Amr
-     * @var Plan
-     */
-    private $admin;
 
-    /**
-     * PlanRepository constructor.
-     * @param Plan $plan
-     * @author Amr
-     */
+    private $admin;
 
 
     function __construct(Admin $admin)
@@ -36,25 +26,8 @@ class AdminRepository implements AdminInterface
         $this->admin = $admin;
     }
 
-    function register(Request $request)
+    function register(AdminRequest $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255|unique:users',
-            'name' => 'required|string|max:255',
-            'phone' => 'required|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'mobile' => 'required',
-            // 'habbits' => 'required',
-            // 'favorite_events' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            // return $this->apiResponse(null, $validator->errors()->toJson(), 400);
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-
         $user = $this->admin->create([
             'username' =>  $request->username,
             'name' =>  $request->name,
@@ -71,7 +44,6 @@ class AdminRepository implements AdminInterface
         if (!$token = $this->guard()->login($user)) {
             return $this->apiResponse(null, null, 401);
             return response()->json(['message' => 'error '], 401);
-            // return abort(401);
         }
         return $this->respondWithToken($token);
     }
@@ -96,11 +68,6 @@ class AdminRepository implements AdminInterface
         ]);
     }
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
     public function guard()
     {
         return auth::guard('admin-api');

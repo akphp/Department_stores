@@ -77,10 +77,8 @@ class ConstantRepository implements ConstantInterface
      */
     function store(Request $request)
     {
-        // $modules = $request->input('modules');
         $userId = Auth::guard('admin-api')->user()->id;
         $constant = $request->all();
-        // unset($constant['modules']);
         $constant['name'] = json_encode($constant['name']);
         $constant['user_id'] = $userId;
         $constant['is_active'] = INACTIVE;
@@ -90,14 +88,6 @@ class ConstantRepository implements ConstantInterface
         return $constant;
     }
 
-    /**
-     * update the resource
-     *
-     * @param Request $request
-     * @param $id
-     * @return mixed
-     * @author Amr
-     */
     function update($id, Request $request)
     {
         $constant = Constant::findOrFail($id);
@@ -113,11 +103,6 @@ class ConstantRepository implements ConstantInterface
         return $constant;
     }
 
-    /**
-     * delete the resource
-     * @param $id
-     * @return mixed
-     */
     function delete(Constant $constant)
     {
 
@@ -125,16 +110,6 @@ class ConstantRepository implements ConstantInterface
         return $constant;
     }
 
-
-
-    /**
-     * change the status of constant
-     *
-     * @param Request $request
-     * @param constant $constant
-     * @param $active
-     * @return bool
-     */
     function changeStatus(Request $request, Constant $constant, $active)
     {
         $constant->is_active = $active;
