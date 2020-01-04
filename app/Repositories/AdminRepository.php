@@ -5,14 +5,10 @@ namespace App\Repositories;
 use App\Http\Requests\AdminRequest;
 use App\Http\Resources\UserCollection;
 use App\Interfaces\AdminInterface;
-use App\Interfaces\PlanInterface;
-use App\Interfaces\UserInterface;
 use App\Models\Admin;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Validator;
 
 class AdminRepository implements AdminInterface
 {

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\ConstantResoures;
 use App\Interfaces\ConstantInterface;
 use App\Interfaces\UserInterface;
 use App\Models\Constant;
@@ -52,7 +53,7 @@ class ConstantRepository implements ConstantInterface
      */
     function all()
     {
-        return $this->constant->get();
+        return  $this->constant->get();
         // return $this->showAll(Collection::make($constants));
     }
 

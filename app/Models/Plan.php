@@ -60,23 +60,10 @@ class Plan extends Model
     ];
 
     protected $with = ['modules', 'currency', 'store'];
-    /**
-     * hidden fetched attributes
-     *
-     * @author Amr
-     * @var array
-     */
+
     protected $hidden = ['user_id'];
 
-    /**
-     * front-end table's columns
-     *
-     * this columns will be shown in the
-     * front-end's table
-     * @author Amr
-     * @var array
-     *
-     */
+
     public static $columns = [
         [
             'label' => 'Title',
@@ -120,23 +107,12 @@ class Plan extends Model
         return $this->hasMany(PlanModule::class);
     }
 
-    /**
-     * get plane's currency
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * @author Amr
-     */
+
     function currency()
     {
         return $this->belongsTo(Currency::class);
     }
 
-    /**
-     * store uses this plan
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     * @author Amr
-     */
     function store()
     {
         return $this->hasOne(Store::class);
