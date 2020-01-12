@@ -56,7 +56,7 @@ class ConstantController extends Controller
     function update($id, ConstantRequest $request)
     {
         $constant = $this->constantRepository->update($id, $request);
-        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
+        return response(['data' => $this->showOne($constant) , 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
 

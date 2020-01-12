@@ -47,8 +47,8 @@ class PlanController extends Controller
     public function show($id)
     {
         $plan = $this->planeRepository->find($id);
-        // $this->showOne($plan);
-        return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
+        $this->showOne($plan);
+        // return response(['data' => $plan, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Models;
 use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Transformers\PlanTransformer;
+
 
 class Plan extends Model
 {
@@ -23,6 +25,8 @@ class Plan extends Model
      * @var string
      */
     protected $table = 'plans';
+    public $transformer = PlanTransformer::class;
+
     /**
      * model's attributes
      * @var array
