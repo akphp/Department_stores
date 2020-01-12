@@ -42,8 +42,9 @@ class ConstantController extends Controller
     public function show($id)
     {
         $constant =  $this->constantRepository->find($id);
+        return $this->showOne($constant);
         // return response()->api(SUCCESS_RESPONSE, trans('lang.constant_fetched_successfully'), $constant);
-        return response(['data' => $constant , 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
+        // return response(['data' => $constant , 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
 

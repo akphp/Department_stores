@@ -30,9 +30,9 @@ class AdminRepository implements AdminInterface
             'email' =>  $request->email,
             'phone' => $request->phone,
             'is_active' =>  INACTIVE,
-            'verified' => INACTIVE,
+            // 'verified' => INACTIVE,
             'mobile' => $request->address,
-            'verification_token' =>  Admin::generateVerificationCode(),
+            // 'verification_token' =>  Admin::generateVerificationCode(),
             'password' => bcrypt($request->password),
         ]);
 

@@ -1,6 +1,6 @@
 <?php
 namespace App\Transformers;
-use App\Constant;
+use App\Models\Constant;
 use League\Fractal\TransformerAbstract;
 class ConstantTransformer extends TransformerAbstract
 {
@@ -14,15 +14,16 @@ class ConstantTransformer extends TransformerAbstract
         return [
             'identifier' => (int)$constant->id,
             'name' => (string)$constant->name,
+            'children' => $constant->children,
             'creationDate' => (string)$constant->created_at,
             'lastChange' => (string)$constant->updated_at,
             'deletedDate' => isset($constant->deleted_at) ? (string) $constant->deleted_at : null,
-            'links' => [
-                [
-                    'rel' => 'self',
-                    'href' => route('constants.show', $constant->id),
-                ],
-            ]
+            // 'links' => [
+            //     [
+            //         'rel' => 'self',
+            //         'href' => route('constant.show', $constant->id),
+            //     ],
+            // ]
         ];
     }
     public static function originalAttribute($index)
