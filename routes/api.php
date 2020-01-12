@@ -74,5 +74,7 @@ Route::group(['middleware' => 'auth:' . ADMIN_GUARD], function () {
         Route::get('/{id}', ['as' => 'constant.show', 'uses' => 'Constant\ConstantController@show'])->where('id', '[0-9]+');;
         Route::delete('/{constant}', ['as' => 'constant.delete', 'uses' => 'Constant\ConstantController@destroy']);
         Route::post('/{constant}/{active}', ['as' => 'constant.change.active', 'uses' => 'Constant\ConstantController@changeStatus']);
+        Route::get('parents', ['as' => 'constant.parents', 'uses' => 'Constant\ConstantController@parents']);
+
     });
 });

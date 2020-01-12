@@ -18,9 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('username')->unique()->nullable();
             $table->string('name')->nullable();
             $table->string('email')->unique();
-            // $table->rememberToken();
-            $table->string('verified')->default(0);
-            $table->string('verification_token')->nullable();
+            $table->rememberToken();
             $table->string('password')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('mobile')->unique()->nullable();

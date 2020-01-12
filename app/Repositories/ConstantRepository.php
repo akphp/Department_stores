@@ -53,9 +53,13 @@ class ConstantRepository implements ConstantInterface
      */
     function all()
     {
-        return  $this->constant->get();
+        return  $this->constant->where('parent_id' , 0)->with('children')->get();
         // return $this->showAll(Collection::make($constants));
     }
+
+    function getParents(){
+        return  $this->constant->where('parent_id' , 0)->with('children')->get();
+    } 
 
     /**
      * get the resource by id
@@ -80,7 +84,7 @@ class ConstantRepository implements ConstantInterface
     {
         $userId = Auth::guard('admin-api')->user()->id;
         $constant = $request->all();
-        $constant['name'] = json_encode($constant['name']);
+        $constant['name'] = $constant['name'];
         $constant['user_id'] = $userId;
         $constant['is_active'] = INACTIVE;
 
@@ -95,7 +99,7 @@ class ConstantRepository implements ConstantInterface
         $userId = Auth::guard('admin-api')->user()->id;
         $data = $request->all();
         // unset($constant['modules']);
-        $data['name'] = json_encode($data['name']);
+        $data['name'] = $data['name'];
         $data['user_id'] = $userId;
         $data['is_active'] = INACTIVE;
 

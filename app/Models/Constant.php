@@ -38,4 +38,22 @@ class Constant extends Model
         'is_active',
 
     ];
+
+      public function getNameAttribute()
+    {
+        $name = $this->attributes['name'];
+        if (!$name)
+            return $name;
+        $name = json_decode($name);
+        $lang = app()->getLocale();
+        // dd($name);
+        return $name->$lang;
+    }
+
+
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id', 'id');
+    }
 }

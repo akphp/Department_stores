@@ -15,8 +15,8 @@ class CreateConstantsTable extends Migration
     {
         Schema::create('constants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('name');
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->text('name')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable()->default(0);
             $table->unsignedBigInteger('user_id');
             $table->tinyInteger('is_active')->default(1)->comment('0 => inactive , 1 => active');
             $table->timestamps();

@@ -8,6 +8,8 @@ use App\Interfaces\ConstantInterface;
 use App\Models\Constant;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use App\Http\Resources\ConstantResoures;
+
 
 class ConstantController extends Controller
 {
@@ -29,12 +31,18 @@ class ConstantController extends Controller
         // return response(['data' => $plans] , SUCCESS_RESPONSE);
 
     }
+    function parents ()
+    {
+        $constants =  $this->constantRepository->getParents();
+        return $this->showAll($constants);
+        // return response(['data' => $plans] , SUCCESS_RESPONSE);
+
+    }
 
     public function show($id)
     {
-        $constant = $this->constantRepository->find($id);
-        // dd($this->showOne($plan));
-        // $this->showOne($plan);
+        $constant =  $this->constantRepository->find($id);
+        // return response()->api(SUCCESS_RESPONSE, trans('lang.constant_fetched_successfully'), $constant);
         return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
