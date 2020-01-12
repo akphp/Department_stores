@@ -26,8 +26,8 @@ class ConstantController extends Controller
 
     function index()
     {
-        $constants =  $this->constantRepository->all();
-        return $this->showAll($constants);
+        $constants = $this->constantRepository->all();
+        return $this->showAll( $constants );
         // return response(['data' => $plans] , SUCCESS_RESPONSE);
 
     }
@@ -43,7 +43,7 @@ class ConstantController extends Controller
     {
         $constant =  $this->constantRepository->find($id);
         // return response()->api(SUCCESS_RESPONSE, trans('lang.constant_fetched_successfully'), $constant);
-        return response(['data' => $constant, 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
+        return response(['data' => $constant , 'code' => SUCCESS_RESPONSE], SUCCESS_RESPONSE);
     }
 
 

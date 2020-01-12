@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Transformers\ConstantTransformer;
+
 
 class Constant extends Model
 {
     use SoftDeletes;
-
+    
+    public $transformer = ConstantTransformer::class;
 
     public function __construct(array $attributes = [])
     {

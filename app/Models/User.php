@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Transformers\UserTransformer;
+
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -16,6 +18,9 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+
+    public $transformer = UserTransformer::class;
+    
     protected $fillable = [
         'username', 'name', 'email', 'password', 'phone', 'mobile', 'is_active', 'verified',
         'verification_token',
