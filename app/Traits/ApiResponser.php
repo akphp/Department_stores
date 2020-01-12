@@ -26,13 +26,9 @@ trait ApiResponser {
 			return $this->successResponse(['data' => $collection], $code);
 		}
 
-		// $transformer = $collection->first()->transformer;
-
         $collection = $this->filterData($collection);
         $collection = $this->sortData($collection);
         $collection = $this->paginate($collection);
-
-        // $collection = $this->transformData($collection, $transformer);
         $collection = $this->cacheResponse($collection);
 
 
@@ -95,14 +91,6 @@ trait ApiResponser {
 		return $paginated;
 
 	}
-
-
-    // protected function transformData($data, $transformer)
-	// {
-    //     $transformation = fractal($data, new $transformer);
-    //     return $transformation->toArray();
-
-    // }
 
     protected function cacheResponse($data)
 	{

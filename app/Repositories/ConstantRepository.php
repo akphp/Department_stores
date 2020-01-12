@@ -121,4 +121,15 @@ class ConstantRepository implements ConstantInterface
         $constant->update();
         return $constant;
     }
+
+    function filter(){
+        $collection = $this->constant->where('parent_id' , 0)->with('children')->get();
+        foreach (request()->query() as $query => $value) {
+			if (isset($attribute, $value)) {
+				$collection = $collection->where($query, $value);
+			}
+        
+        }
+        return  $collection;
+    }
 }
