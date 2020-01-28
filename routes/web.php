@@ -21,4 +21,9 @@ Route::get('/', function () {
 // Auth::routes(['register' => false , 'password.*' => false]);
 
 Route::get('login' , 'Auth\LoginController@showLoginForm')->name('login');
-// Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// login with Social Media
+Route::get('login/{provider}', 'User\LoginSocialiteController@redirectToProvider');
+Route::get('login/{provider}/callback', 'User\LoginSocialiteController@callback');

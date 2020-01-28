@@ -43,6 +43,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'user'], function ($router) {
     Route::post('login', 'User\AuthController@login');
     Route::post('register', 'User\AuthController@register');
 
+    // login with Social Media
+    // Route::get('login/{provider}', 'User\LoginSocialiteController@redirectToProvider');
+    // Route::get('login/{provider}/callback', 'User\LoginSocialiteController@handleProviderCallback');
+
     Route::post('logout', 'User\AuthController@logout');
     Route::post('profile', 'User\AuthController@me');
 });
